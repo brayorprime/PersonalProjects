@@ -1,3 +1,4 @@
+from re import I
 import pygame
 from pygame.locals import *
 import sys
@@ -7,7 +8,6 @@ pygame.init()
 size = width, height = 1100,1100
 speed = [10, 15]
 black = 250,250,250
-#--------------------------------------
 screen = pygame.display.set_mode(size)
 
 background = pygame.image.load("PythonGame\Sprites\\background.png")
@@ -37,23 +37,24 @@ def exitGame():
             sys.exit()
 
 while True:
-	screen.blit(background, position, position)
-	
-	exitGame()
+    screen.blit(background, position, position)
 
-	position = position.move(speed)
-	
-	if position.left < 0 or position.right > bgrect.right:
-		speed[0] = -speed[0]
+    for event in pygame.event.get():
+        if event.type in (KEYDOWN):
+            position = position.move(speed)
+	# position = position.move(speed)
+    if position.left < 0 or position.right > bgrect.right: 
+        speed[0] = -speed[0]
 
-	if position.top < 0 or position.bottom > bgrect.bottom:
-		speed[1] = -speed[1]
+    if position.top < 0 or position.bottom > bgrect.bottom:
+	    speed[1] = -speed[1]
 
-	screen.blit(ball, position)
-	pygame.display.update()
-	pygame.display.flip()
-	pygame.time.delay(10)
-#--------------------------------------
+    screen.blit(ball,position)
+    pygame.display.update()
+    pygame.display.flip()
+    pygame.time.delay(10)
+
+
 
 # o = GameObject(player, x*40, x*10)
 
